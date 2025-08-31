@@ -1961,7 +1961,11 @@ class DataArray(AbstractArray, DataWithCoords):
         # pull variables out of datarray
         data_dict = {}
         for k in variables:
-            data_dict[k] = self.sel({variable_dim: k}).squeeze(drop=True)
+            selected = self.sel({variable_dim: k}).squeeze(drop=True)
+            # Drop the unstacking dimension coordinate to avoid conflicts
+            if dim in selected.coords:
+                selected = selected.drop(dim)
+            data_dict[k] = selected
 
         # unstacked dataset
         return Dataset(data_dict)

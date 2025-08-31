@@ -3055,6 +3055,20 @@ class TestDataset:
         x = y.to_unstacked_dataset("features")
         assert_identical(D, x)
 
+    def test_to_stacked_array_to_unstacked_dataset_single_dim(self):
+        # test for issue where single-dim variables cause MergeError
+        # when unstacking due to conflicting coordinate values
+        arr = DataArray(
+            np.arange(3),
+            coords=[("x", [0, 1, 2])],
+        )
+        D = xr.Dataset({"a": arr, "b": arr})
+        sample_dims = ["x"]
+        
+        y = D.to_stacked_array("features", sample_dims)
+        x = y.to_unstacked_dataset("features")
+        assert_identical(D, x)
+
     def test_update(self):
         data = create_test_data(seed=0)
         expected = data.copy()

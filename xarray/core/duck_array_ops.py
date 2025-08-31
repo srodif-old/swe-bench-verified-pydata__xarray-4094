@@ -99,7 +99,7 @@ def isnull(data):
     elif issubclass(scalar_type, np.inexact):
         # float types use NaN for null
         return isnan(data)
-    elif issubclass(scalar_type, (np.bool_, np.integer, np.character, np.void)):
+    elif issubclass(scalar_type, (bool, np.integer, np.character, np.void)):
         # these types cannot represent missing values
         return zeros_like(data, dtype=bool)
     else:
