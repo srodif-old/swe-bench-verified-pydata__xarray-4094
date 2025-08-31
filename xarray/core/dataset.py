@@ -4293,7 +4293,7 @@ class Dataset(Mapping, ImplementsDatasetReduce, DataWithCoords):
                 if (
                     not numeric_only
                     or np.issubdtype(var.dtype, np.number)
-                    or (var.dtype == np.bool_)
+                    or (var.dtype == bool)
                 ):
                     if len(reduce_dims) == 1:
                         # unpack dimensions for the benefit of functions
@@ -5328,7 +5328,7 @@ class Dataset(Mapping, ImplementsDatasetReduce, DataWithCoords):
                     if (
                         not numeric_only
                         or np.issubdtype(var.dtype, np.number)
-                        or var.dtype == np.bool_
+                        or var.dtype == bool
                     ):
                         if len(reduce_dims) == var.ndim:
                             # prefer to aggregate over axis=None rather than
